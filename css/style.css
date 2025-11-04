@@ -1,0 +1,61 @@
+/* ===== Design tokens ===== */
+:root {
+  --bg: #ffffff;
+  --text: #0f172a; 
+  --muted: #6b7280;
+  --primary: #7c3aed;     
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+}
+
+/* ===== Base ===== */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--bg);
+}
+
+a { color: var(--primary); 
+    text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* ===== Header / Footer ===== */
+.site-header {
+  padding: 2rem 0 1.5rem;
+}
+.header-inner { 
+    display: grid; 
+    gap: .5rem; 
+}
+.logo { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: .6rem; 
+}
+.logo-icon { 
+    width: 28px; 
+    height: 28px; 
+    fill: var(--primary); 
+}
+.logo-name { 
+    font-weight: 800; 
+    font-size: 1.25rem; 
+    letter-spacing: .2px; 
+}
+.tagline { 
+    margin: 0; 
+    color: var(--muted); 
+}
+
+.site-footer { 
+    padding: 3rem 0 2rem; 
+    color: var(--muted); }
