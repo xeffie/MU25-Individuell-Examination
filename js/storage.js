@@ -10,7 +10,7 @@ export function saveBookmarks(list) {
 }
 
 function uid() {
-  return (crypto?.randomUUID?.() ?? Date.now().toString(36) + Math.random().toString(36).slice(2));
+  return (Date.now().toString(36) + Math.random().toString(36).slice(2));
 }
 
 export function addBookmark({ title, url }) {
