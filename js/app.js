@@ -59,11 +59,8 @@ function onSubmit(e) {
     return;
   }
 
-  let normalizedUrl;
-  try {
-    normalizedUrl = normalizeUrl(rawUrl);
-  } catch {
-    errorEl.textContent = "Ogiltig URL. Exempel: https://example.com";
+  const normalizedUrl = toNormalizedUrlOrNull(rawUrl);
+  if (!normalizedUrl) {
     updateSubmitState();
     return;
   }
@@ -81,16 +78,26 @@ function escapeHtml(s){
   return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function normalizeUrl(input) {
+function toNormalizedUrlOrNull(input) {
   let u = input.trim();
-  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u)) {
-    u = "https://" + u;
+  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u)) u = "https://" + u;
+
+  try {
+    const url = new URL(u);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+
+    const host = url.hostname;
+    if (!/^[a-z0-9.-]+$/i.test(host)) return null;
+    if (!host.includes(".")) return null;
+    const tld = host.split(".").pop() || "";
+    if (tld.length < 2) return null;
+
+    return url.toString();
+  } catch {
+    return null;
   }
-  const { href } = new URL(u);
-  return href;
 }
 
 function isValidUrlGuess(input) {
-  try { normalizeUrl(input); return true; }
-  catch { return false; }
+  return toNormalizedUrlOrNull(input) !== null;
 }
