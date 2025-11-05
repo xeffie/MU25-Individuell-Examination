@@ -194,3 +194,28 @@ input:focus {
 #bookmark-list a:hover { 
     text-decoration: underline; 
 }
+
+.bm-item {
+  display: flex;
+  gap: .5rem;
+  align-items: baseline;
+  padding: .5rem 0;
+}
+.bm-title { 
+  font-weight: 600; 
+  color: var(--text);
+  text-decoration: none;
+}
+.bm-title:hover { text-decoration: underline; }
+
+.bm-sep { 
+  color: var(--border);
+}
+
+.bm-url {
+  color: var(--muted);
+  font-size: .9rem;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 60%;
+}

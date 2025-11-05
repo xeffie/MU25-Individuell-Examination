@@ -31,8 +31,27 @@ function populateList(items) {
 
 function appendItem(item) {
   const li = document.createElement("li");
-  li.innerHTML = `<a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>`;
-  listEl.appendChild(li);
+  li.className = "bm-item";
+  li.innerHTML = `
+    <a class="bm-title" href="${item.url}" target="_blank" rel="noopener">
+      ${escapeHtml(item.title)}
+    </a>
+    <span class="bm-sep">·</span>
+    <span class="bm-url" title="${escapeHtml(item.url)}">
+      ${escapeHtml(displayUrl(item.url))}
+    </span>
+  `;
+  listEl.insertBefore(li, listEl.firstChild)
+}
+
+function displayUrl(u) {
+  try {
+    const url = new URL(u);
+    const path = url.pathname.replace(/\/$/, "");
+    return url.hostname + (path || "");
+  } catch {
+    return u;
+  }
 }
 
 function toggleEmpty() {
