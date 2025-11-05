@@ -42,7 +42,6 @@ function toggleEmpty() {
 }
 
 function updateSubmitState() {
-  errorEl.textContent = "";
   const titleOk = titleInput.value.trim().length > 0;
   const urlOk = isValidUrlGuess(urlInput.value.trim());
   submitBtn.disabled = !(titleOk && urlOk);
@@ -50,14 +49,12 @@ function updateSubmitState() {
 
 function onSubmit(e) {
   e.preventDefault();
-  errorEl.textContent = "";
   submitBtn.disabled = true;
 
   const rawTitle = titleInput.value.trim();
   const rawUrl = urlInput.value.trim();
 
   if (!rawTitle || !rawUrl) {
-    errorEl.textContent = "Titel och URL måste fyllas i.";
     updateSubmitState();
     return;
   }
