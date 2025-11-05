@@ -83,6 +83,7 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
 }
 
+
 /* ===== Form ===== */
 .form {
  display: grid;
@@ -153,7 +154,9 @@ input:focus {
   color: var(--muted);
   border: 1px solid var(--border);
 }
-.btn-ghost:hover { color: var(--text); }
+.btn-ghost:hover { 
+    color: var(--text); 
+}
 
 /* ===== Empty state ===== */
 .empty { 
@@ -163,12 +166,31 @@ input:focus {
 .empty-ill { 
     display: flex; 
     justify-content: center; 
-    margin-bottom: .75rem; }
+    margin-bottom: .75rem; 
+}
 .empty-ill svg { 
     width: 48px; 
     height: 48px; 
     fill: var(--muted); 
-    opacity: .6; }
-
+    opacity: .6; 
+}
 .empty h3 { margin: 0 0 .25rem; }
 .empty p  { margin: 0; color: var(--muted); }
+
+/* ===== Bookmark List ===== */
+
+#bookmark-list { 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+}
+#bookmark-list li + li { 
+    border-top: 1px solid var(--border); 
+}
+#bookmark-list a { 
+    color: var(--text); 
+    text-decoration: none; 
+}
+#bookmark-list a:hover { 
+    text-decoration: underline; 
+}
