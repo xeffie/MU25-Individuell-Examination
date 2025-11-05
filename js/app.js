@@ -50,6 +50,7 @@ function updateSubmitState() {
 function onSubmit(e) {
   e.preventDefault();
   submitBtn.disabled = true;
+  errorEl.textContent = "";
 
   const rawTitle = titleInput.value.trim();
   const rawUrl = urlInput.value.trim();
@@ -65,13 +66,23 @@ function onSubmit(e) {
     return;
   }
 
-  const item = addBookmark({ title: rawTitle, url: normalizedUrl });
-  appendItem(item);
-  toggleEmpty();
-
-  form.reset();
-  titleInput.focus();
-  updateSubmitState();
+  try {
+    const item = addBookmark({ title: rawTitle, url: normalizedUrl });
+    appendItem(item);
+    toggleEmpty();
+    form.reset();
+    titleInput.focus();
+  } catch (err) {
+    if (err?.code === "DUPLICATE_TITLE") {
+      errorEl.textContent = "Titeln finns redan.";
+    } else if (err?.code === "DUPLICATE_URL") {
+      errorEl.textContent = "Länken är redan sparad.";
+    } else {
+      errorEl.textContent = "Kunde inte spara bokmärket.";
+    }
+  } finally {
+    updateSubmitState();
+  }
 }
 
 function escapeHtml(s){
