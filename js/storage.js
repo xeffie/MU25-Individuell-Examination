@@ -15,6 +15,22 @@ function uid() {
 
 export function addBookmark({ title, url }) {
   const list = loadBookmarks();
+
+  const titleKey = title.trim().toLowerCase();
+  const urlKey = normalizeForCompare(url);
+
+  if (list.some(i => (i.title ?? "").trim().toLowerCase() === titleKey)) {
+    const err = new Error("Duplicate title");
+    err.code = "DUPLICATE_TITLE";
+    throw err;
+  }
+
+  if (list.some(i => normalizeForCompare(i.url) === urlKey)) {
+    const err = new Error("Duplicate URL");
+    err.code = "DUPLICATE_URL";
+    throw err;
+  }
+
   const item = {
     id: uid(),
     title: title.trim(),
@@ -24,4 +40,15 @@ export function addBookmark({ title, url }) {
   list.push(item);
   saveBookmarks(list);
   return item;
+}
+
+function normalizeForCompare(u) {
+  try {
+    const url = new URL(u);
+    url.hash = "";
+    url.hostname = url.hostname.toLowerCase();
+    return url.toString();
+  } catch {
+    return String(u).trim().toLowerCase();
+  }
 }

@@ -42,7 +42,6 @@ function toggleEmpty() {
 }
 
 function updateSubmitState() {
-  errorEl.textContent = "";
   const titleOk = titleInput.value.trim().length > 0;
   const urlOk = isValidUrlGuess(urlInput.value.trim());
   submitBtn.disabled = !(titleOk && urlOk);
@@ -50,50 +49,66 @@ function updateSubmitState() {
 
 function onSubmit(e) {
   e.preventDefault();
-  errorEl.textContent = "";
   submitBtn.disabled = true;
+  errorEl.textContent = "";
 
   const rawTitle = titleInput.value.trim();
   const rawUrl = urlInput.value.trim();
 
   if (!rawTitle || !rawUrl) {
-    errorEl.textContent = "Titel och URL måste fyllas i.";
     updateSubmitState();
     return;
   }
 
-  let normalizedUrl;
+  const normalizedUrl = toNormalizedUrlOrNull(rawUrl);
+  if (!normalizedUrl) {
+    updateSubmitState();
+    return;
+  }
+
   try {
-    normalizedUrl = normalizeUrl(rawUrl);
-  } catch {
-    errorEl.textContent = "Ogiltig URL. Exempel: https://example.com";
+    const item = addBookmark({ title: rawTitle, url: normalizedUrl });
+    appendItem(item);
+    toggleEmpty();
+    form.reset();
+    titleInput.focus();
+  } catch (err) {
+    if (err?.code === "DUPLICATE_TITLE") {
+      errorEl.textContent = "Titeln finns redan.";
+    } else if (err?.code === "DUPLICATE_URL") {
+      errorEl.textContent = "Länken är redan sparad.";
+    } else {
+      errorEl.textContent = "Kunde inte spara bokmärket.";
+    }
+  } finally {
     updateSubmitState();
-    return;
   }
-
-  const item = addBookmark({ title: rawTitle, url: normalizedUrl });
-  appendItem(item);
-  toggleEmpty();
-
-  form.reset();
-  titleInput.focus();
-  updateSubmitState();
 }
 
 function escapeHtml(s){
   return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function normalizeUrl(input) {
+function toNormalizedUrlOrNull(input) {
   let u = input.trim();
-  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u)) {
-    u = "https://" + u;
+  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u)) u = "https://" + u;
+
+  try {
+    const url = new URL(u);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+
+    const host = url.hostname;
+    if (!/^[a-z0-9.-]+$/i.test(host)) return null;
+    if (!host.includes(".")) return null;
+    const tld = host.split(".").pop() || "";
+    if (tld.length < 2) return null;
+
+    return url.toString();
+  } catch {
+    return null;
   }
-  const { href } = new URL(u);
-  return href;
 }
 
 function isValidUrlGuess(input) {
-  try { normalizeUrl(input); return true; }
-  catch { return false; }
+  return toNormalizedUrlOrNull(input) !== null;
 }
