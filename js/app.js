@@ -1,6 +1,9 @@
+// app.js
+// Renders and manages the bookmark list
 
 import { loadBookmarks, addBookmark, removeBookmark } from "./storage.js";
 
+// DOM references
 const listSection = document.getElementById("list-section");
 const listEl = document.getElementById("bookmark-list");
 const emptyState = document.getElementById("empty-state");
@@ -25,34 +28,40 @@ function init() {
   listEl.addEventListener("click", onListClick);
 }
 
+
+/* --------------------------- Rendering ---------------------------- */
 function populateList(items) {
   listEl.innerHTML = "";
   items.forEach(appendItem);
   toggleEmpty();
 }
 
+// Add a single item to the list (prepend, newest first)
 function appendItem(item) {
   const li = document.createElement("li");
   li.className = "bm-item";
-  li.dataset.id = item.id; // <-- viktigt!
+  li.dataset.id = item.id;
 
   li.innerHTML = `
     <div class="bm-main">
       <a class="bm-title" href="${item.url}" target="_blank" rel="noopener">
         ${escapeHtml(item.title)}
       </a>
-      <span class="bm-sep">·</span>
+      <span class="bm-sep">~</span>
       <span class="bm-url" title="${escapeHtml(item.url)}">
         ${escapeHtml(displayUrl(item.url))}
       </span>
     </div>
     <button class="bm-del btn btn-ghost btn-icon" type="button"
-      aria-label="Ta bort ${escapeHtml(item.title)}" title="Ta bort">✕</button>
+      aria-label="Ta bort ${escapeHtml(
+        item.title
+      )}" title="Remove bookmark">✕</button>
   `;
 
   listEl.insertBefore(li, listEl.firstChild);
 }
 
+/* ---------------------------- Events ------------------------------ */
 function onListClick(e) {
   const btn = e.target.closest(".bm-del");
   if (!btn) return;
@@ -68,6 +77,48 @@ function onListClick(e) {
   }
 }
 
+function onSubmit(e) {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  errorEl.textContent = "";
+
+  const rawTitle = titleInput.value.trim();
+  const rawUrl = urlInput.value.trim();
+
+  // Inputs must be non-empty.
+  if (!rawTitle || !rawUrl) {
+    updateSubmitState();
+    return;
+  }
+
+  // Normalize and validate URL.
+  const normalizedUrl = toNormalizedUrlOrNull(rawUrl);
+  if (!normalizedUrl) {
+    updateSubmitState();
+    return;
+  }
+
+  try {
+    // Persist and render
+    const item = addBookmark({ title: rawTitle, url: normalizedUrl });
+    appendItem(item);
+    toggleEmpty();
+    form.reset();
+    titleInput.focus();
+  } catch (err) {
+    // If duplicate, show error.
+    if (err?.code === "DUPLICATE_TITLE") {
+      errorEl.textContent = "Title already exist..";
+    } else if (err?.code === "DUPLICATE_URL") {
+      errorEl.textContent = "URL has already been bookmarked.";
+    }
+  } finally {
+    updateSubmitState();
+  }
+}
+
+/* --------------------------- UI helpers --------------------------- */
+// Display "clean" URL
 function displayUrl(u) {
   try {
     const url = new URL(u);
@@ -77,69 +128,42 @@ function displayUrl(u) {
     return u;
   }
 }
-
+// Show/hide empty state and list section.
 function toggleEmpty() {
   const hasItems = listEl.children.length > 0;
   emptyState.hidden = hasItems;
   listSection.hidden = !hasItems;
 }
-
+// Enable/disable submit button based on form state.
 function updateSubmitState() {
   const titleOk = titleInput.value.trim().length > 0;
   const urlOk = isValidUrlGuess(urlInput.value.trim());
   submitBtn.disabled = !(titleOk && urlOk);
 }
 
-function onSubmit(e) {
-  e.preventDefault();
-  submitBtn.disabled = true;
-  errorEl.textContent = "";
-
-  const rawTitle = titleInput.value.trim();
-  const rawUrl = urlInput.value.trim();
-
-  if (!rawTitle || !rawUrl) {
-    updateSubmitState();
-    return;
-  }
-
-  const normalizedUrl = toNormalizedUrlOrNull(rawUrl);
-  if (!normalizedUrl) {
-    updateSubmitState();
-    return;
-  }
-
-  try {
-    const item = addBookmark({ title: rawTitle, url: normalizedUrl });
-    appendItem(item);
-    toggleEmpty();
-    form.reset();
-    titleInput.focus();
-  } catch (err) {
-    if (err?.code === "DUPLICATE_TITLE") {
-      errorEl.textContent = "Titeln finns redan.";
-    } else if (err?.code === "DUPLICATE_URL") {
-      errorEl.textContent = "Länken är redan sparad.";
-    } else {
-      errorEl.textContent = "Kunde inte spara bokmärket.";
-    }
-  } finally {
-    updateSubmitState();
-  }
+/* --------------------------- Utilities ---------------------------- */
+// Escape HTML special characters to prevent XSS.
+function escapeHtml(s) {
+  return s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[
+        c
+      ])
+  );
 }
 
-function escapeHtml(s){
-  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
+// URL Normalizer
 function toNormalizedUrlOrNull(input) {
   let u = input.trim();
+  // ADd https if missing
   if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(u)) u = "https://" + u;
 
   try {
     const url = new URL(u);
     if (url.protocol !== "http:" && url.protocol !== "https:") return null;
 
+    // Host must be [a–z0–9.-], have a dot, TLD >= 2 chars
     const host = url.hostname;
     if (!/^[a-z0-9.-]+$/i.test(host)) return null;
     if (!host.includes(".")) return null;
