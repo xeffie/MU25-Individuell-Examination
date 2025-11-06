@@ -8,6 +8,16 @@ Projektet demonstrerar ett komplett Git-flöde med feature-brancher, pull reques
 
 ---
 
+## 📚 Funktioner
+
+- Lägga till ett bokmärke med titel och URL (validering och normalisering till `https://` vid behov).
+- Bokmärket sparas automatiskt i `localStorage`.
+- Lista sparade bokmärken med senaste överst.
+- Öppna ett bokmärke i en ny flik.
+- Ta bort bokmärken från listan och `localStorage`.
+
+---
+
 ## 💡 Syfte
 
 Syftet med projektet är att bygga en enkel webbsida där användaren kan spara, visa, ta bort och hantera bokmärken.  
@@ -20,6 +30,8 @@ Projektet används för att visa förståelse för:
 ---
 
 ## ⚙️ Hur man kör projektet
+
+[Live demo](https://xeffie.github.io/MU25-Individuell-Examination/)
 
 1. Klona detta repository:
    ```bash
@@ -35,15 +47,17 @@ Projektet används för att visa förståelse för:
 ## 🧩 Struktur
 ```bash
 .
+├── .gitignore
 ├── css/
 │   └── style.css
-├── js/
-│   └── app.js
 ├── images/
 │   └── .gitkeep
 ├── index.html
-├── reflection.md
-└── README.md
+├── js/
+│   ├── app.js
+│   └── storage.js
+├── README.md
+└── reflection.md
 ```
 
 ---
@@ -51,7 +65,8 @@ Projektet används för att visa förståelse för:
 ## 🔗 Länkar
 
 - **Trello-bräda:** [Öppna i Trello](https://trello.com/invite/b/690476f3b5991c60586c3316/ATTIa1c734b043614a71d91952a03bdfc2f83A3A18AA/individuell-examination-mu25)
-- **Figma:**
 - **Mina reviews:**
-  -   Given:
+  -   Given: https://github.com/ThatMayBeTheCase/Bookmarks-lite/pull/2#pullrequestreview-3411508619
+  -   Given: https://github.com/VitaliyBeletskiy/mu25-git-agile-bookmarks-mini/pull/3#pullrequestreview-3416439395 
+
   -   Mottagen:
