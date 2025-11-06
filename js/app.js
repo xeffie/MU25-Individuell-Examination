@@ -1,5 +1,5 @@
 
-import { loadBookmarks, addBookmark } from "./storage.js";
+import { loadBookmarks, addBookmark, removeBookmark } from "./storage.js";
 
 const listSection = document.getElementById("list-section");
 const listEl = document.getElementById("bookmark-list");
@@ -21,6 +21,8 @@ function init() {
   urlInput.addEventListener("input", updateSubmitState);
 
   form.addEventListener("submit", onSubmit);
+
+  listEl.addEventListener("click", onListClick);
 }
 
 function populateList(items) {
@@ -32,16 +34,38 @@ function populateList(items) {
 function appendItem(item) {
   const li = document.createElement("li");
   li.className = "bm-item";
+  li.dataset.id = item.id; // <-- viktigt!
+
   li.innerHTML = `
-    <a class="bm-title" href="${item.url}" target="_blank" rel="noopener">
-      ${escapeHtml(item.title)}
-    </a>
-    <span class="bm-sep">·</span>
-    <span class="bm-url" title="${escapeHtml(item.url)}">
-      ${escapeHtml(displayUrl(item.url))}
-    </span>
+    <div class="bm-main">
+      <a class="bm-title" href="${item.url}" target="_blank" rel="noopener">
+        ${escapeHtml(item.title)}
+      </a>
+      <span class="bm-sep">·</span>
+      <span class="bm-url" title="${escapeHtml(item.url)}">
+        ${escapeHtml(displayUrl(item.url))}
+      </span>
+    </div>
+    <button class="bm-del btn btn-ghost btn-icon" type="button"
+      aria-label="Ta bort ${escapeHtml(item.title)}" title="Ta bort">✕</button>
   `;
-  listEl.insertBefore(li, listEl.firstChild)
+
+  listEl.insertBefore(li, listEl.firstChild);
+}
+
+function onListClick(e) {
+  const btn = e.target.closest(".bm-del");
+  if (!btn) return;
+
+  const li = btn.closest("li");
+  const id = li?.dataset.id;
+  if (!id) return;
+
+  const removed = removeBookmark(id);
+  if (removed) {
+    li.remove();
+    toggleEmpty();
+  }
 }
 
 function displayUrl(u) {

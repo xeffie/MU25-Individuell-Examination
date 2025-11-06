@@ -42,6 +42,13 @@ export function addBookmark({ title, url }) {
   return item;
 }
 
+export function removeBookmark(id) {
+  const list = loadBookmarks();
+  const next = list.filter(i => i.id !== id);
+  saveBookmarks(next);
+  return list.length !== next.length;
+}
+
 function normalizeForCompare(u) {
   try {
     const url = new URL(u);
