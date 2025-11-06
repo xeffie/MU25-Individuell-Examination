@@ -219,3 +219,12 @@ input:focus {
   white-space: nowrap;
   max-width: 60%;
 }
+
+.btn-icon {
+  padding: .35rem .55rem;
+  line-height: 1;
+  border-radius: 10px;
+}
+.bm-del { 
+  flex: 0 0 auto; 
+}
