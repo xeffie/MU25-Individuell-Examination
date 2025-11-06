@@ -195,29 +195,46 @@ input:focus {
     text-decoration: underline; 
 }
 
+.bm-main {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
 .bm-item {
   display: flex;
-  gap: .5rem;
-  align-items: baseline;
+  gap: 2rem;
+  align-items: center;
   padding: .5rem 0;
+  padding-inline: 1.25rem;
+}
+.bm-item:hover {
+  background: color-mix(in srgb, var(--card) 92%, var(--primary) 8%);
+  border-radius: 8px;
 }
 .bm-title { 
   font-weight: 600; 
   color: var(--text);
   text-decoration: none;
+  padding: 0 2rem;
 }
 .bm-title:hover { text-decoration: underline; }
 
 .bm-sep { 
-  color: var(--border);
+  color: var(--muted);
+  opacity: .5;
 }
 
 .bm-url {
   color: var(--muted);
   font-size: .9rem;
+  font-style: italic;
   overflow: hidden;
   white-space: nowrap;
   max-width: 60%;
+  padding: 0 2rem;
 }
 
 .btn-icon {

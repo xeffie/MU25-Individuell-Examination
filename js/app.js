@@ -1,4 +1,3 @@
-
 import { loadBookmarks, addBookmark, removeBookmark } from "./storage.js";
 
 const listSection = document.getElementById("list-section");
@@ -34,20 +33,22 @@ function populateList(items) {
 function appendItem(item) {
   const li = document.createElement("li");
   li.className = "bm-item";
-  li.dataset.id = item.id; // <-- viktigt!
+  li.dataset.id = item.id;
 
   li.innerHTML = `
     <div class="bm-main">
       <a class="bm-title" href="${item.url}" target="_blank" rel="noopener">
         ${escapeHtml(item.title)}
       </a>
-      <span class="bm-sep">·</span>
+      <span class="bm-sep">~</span>
       <span class="bm-url" title="${escapeHtml(item.url)}">
         ${escapeHtml(displayUrl(item.url))}
       </span>
     </div>
     <button class="bm-del btn btn-ghost btn-icon" type="button"
-      aria-label="Ta bort ${escapeHtml(item.title)}" title="Ta bort">✕</button>
+      aria-label="Ta bort ${escapeHtml(
+        item.title
+      )}" title="Remove bookmark">✕</button>
   `;
 
   listEl.insertBefore(li, listEl.firstChild);
@@ -117,19 +118,23 @@ function onSubmit(e) {
     titleInput.focus();
   } catch (err) {
     if (err?.code === "DUPLICATE_TITLE") {
-      errorEl.textContent = "Titeln finns redan.";
+      errorEl.textContent = "Title already exist.";
     } else if (err?.code === "DUPLICATE_URL") {
-      errorEl.textContent = "Länken är redan sparad.";
-    } else {
-      errorEl.textContent = "Kunde inte spara bokmärket.";
+      errorEl.textContent = "URL has already been bookmarked.";
     }
   } finally {
     updateSubmitState();
   }
 }
 
-function escapeHtml(s){
-  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function escapeHtml(s) {
+  return s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[
+        c
+      ])
+  );
 }
 
 function toNormalizedUrlOrNull(input) {
