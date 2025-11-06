@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <!-- Header: Logo + tagline -->
     <header class="site-header">
       <div class="container header-inner">
         <div class="logo">
@@ -18,11 +19,15 @@
         <p class="tagline">Save the web, one click at the time.</p>
       </div>
     </header>
+
+    <!-- Main content: Add form, empty state and bookmark list -->
     <main class="container">
+      <!-- Add new bookmark - card -->
       <section class="card">
         <h2 id="add-title" class="card-title">Add bookmark</h2>
         <form id="add-form" class="form" autocomplete="off" novalidate>
-          <div class="field">
+            <!-- Title field -->
+            <div class="field">
             <label for="title">Title</label>
             <input
               id="title"
@@ -32,6 +37,8 @@
               required
             />
           </div>
+
+          <!-- URL field -->
           <div class="field">
             <label for="url">URL</label>
             <input
@@ -43,9 +50,12 @@
               required
             />
           </div>
+
+          <!-- Add button: Disabled by default, enabled by JS. -->
           <div class="actions">
             <button class="btn btn-primary" type="submit" disabled>Add</button>
           </div>
+
           <p
             id="form-error"
             class="form-error"
@@ -55,6 +65,7 @@
         </form>
       </section>
 
+      <!-- Empty state: shown when list is empty -->
       <section class="empty card" id="empty-state" aria-live="polite">
         <div class="empty-ill">
           <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -67,12 +78,15 @@
         <p>Try adding your first link above. They’ll appear here.</p>
       </section>
 
+        <!-- Bookmark list: hidden until there are items to show -->
       <section class="card" id="list-section" aria-live="polite" hidden>
         <h2 class="card-title">Your bookmarks</h2>
+        <!-- Populated by app.js -->
         <ul id="bookmark-list"></ul>
       </section>
-
     </main>
+
+    <!-- Footer -->
     <footer class="site-footer container">
       <p>© 2025 — Bookmarks Mini</p>
     </footer>

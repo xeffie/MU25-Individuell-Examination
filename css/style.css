@@ -1,21 +1,33 @@
-*,*::before,*::after{ box-sizing:border-box; }
+/* ===================================================================
+        Global reset & design tokens
+   =================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* ===== Design tokens ===== */
 :root {
   --bg: #0b1220;
-  --text: #e5e7eb; 
+  --text: #e5e7eb;
   --muted: #9ca3af;
-  --primary: #7c3aed; 
+  --primary: #7c3aed;
   --card: #0f1a2e;
-  --border: #1f2a44;  
-  --highlight: rgba(124, 58, 237, 0.35); 
+  --border: #1f2a44;
+  --highlight: rgba(124, 58, 237, 0.35);
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-               Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", sans-serif;
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
 }
 
-/* ===== Base ===== */
-html, body { height: 100%; }
+/* ===================================================================
+         Base
+   =================================================================== */
+html,
+body {
+  height: 100%;
+}
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -24,56 +36,63 @@ body {
   line-height: 1.5;
 }
 
-a { color: var(--primary); 
-    text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 
 .container {
   max-width: 840px;
   margin: 0 auto;
 }
 
-/* ===== Header / Footer ===== */
+/* ===================================================================
+        Header / Footer
+   =================================================================== */
 .site-header {
   padding: 2rem 0 1.5rem;
 }
-.header-inner { 
-    display: grid; 
-    gap: .5rem; 
+.header-inner {
+  display: grid;
+  gap: 0.5rem;
 }
-.logo { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: .6rem; 
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
 }
-.logo-icon { 
-    width: 28px; 
-    height: 28px; 
-    fill: var(--primary); 
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  fill: var(--primary);
 }
-.logo-name { 
-    font-weight: 800; 
-    font-size: 1.25rem; 
-    letter-spacing: .2px; 
+.logo-name {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.2px;
 }
-.tagline { 
-    margin: 0; 
-    color: var(--muted); 
-}
-
-.site-footer { 
-    padding: 3rem 0 2rem; 
-    color: var(--muted);
-    text-align: center; 
+.tagline {
+  margin: 0;
+  color: var(--muted);
 }
 
+.site-footer {
+  padding: 3rem 0 2rem;
+  color: var(--muted);
+  text-align: center;
+}
 
-/* ===== Cards ===== */
+/* ===================================================================
+        Cards
+   =================================================================== */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   padding: 1.5rem;
   margin: 1.5rem 0;
 }
@@ -83,25 +102,26 @@ a:hover { text-decoration: underline; }
   font-weight: 700;
 }
 
-
-/* ===== Form ===== */
+/* ===================================================================
+        Form
+   =================================================================== */
 .form {
- display: grid;
+  display: grid;
   grid-template-columns: 1fr 1.5fr auto;
-  column-gap: 1rem;  
-  row-gap: .75rem;   
+  column-gap: 1rem;
+  row-gap: 0.75rem;
   align-items: end;
 }
-.field { 
-    display: grid; 
-    gap: .5rem; 
+.field {
+  display: grid;
+  gap: 0.5rem;
 }
-label { 
-    font-size: .875rem; 
-    color: var(--muted); 
+label {
+  font-size: 0.875rem;
+  color: var(--muted);
 }
 input {
-  padding: .7rem .9rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: transparent;
@@ -113,10 +133,10 @@ input:focus {
   box-shadow: 0 0 0 4px var(--highlight);
 }
 
-.actions { 
-    display: flex; 
-    gap: .75rem; 
-    align-items: center; 
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 .form-error {
   grid-column: 1 / -1;
@@ -125,28 +145,32 @@ input:focus {
   min-height: 1.25rem;
 }
 
-/* ===== Buttons ===== */
+/* ===================================================================
+        Button
+   =================================================================== */
 .btn {
   appearance: none;
   border: 0;
   border-radius: 12px;
-  padding: .75rem 1rem;
+  padding: 0.75rem 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform .02s ease, filter .15s ease;
+  transition: transform 0.02s ease, filter 0.15s ease;
 }
-.btn:active { transform: translateY(1px); }
+.btn:active {
+  transform: translateY(1px);
+}
 
 .btn-primary {
   background: var(--primary);
   color: #fff;
 }
-.btn-primary:hover { 
-    filter: brightness(.90); 
+.btn-primary:hover {
+  filter: brightness(0.9);
 }
-.btn-primary:disabled { 
-    opacity: .5; 
-    cursor: not-allowed; 
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-ghost {
@@ -154,94 +178,131 @@ input:focus {
   color: var(--muted);
   border: 1px solid var(--border);
 }
-.btn-ghost:hover { 
-    color: var(--text); 
+.btn-ghost:hover {
+  color: var(--text);
 }
 
-/* ===== Empty state ===== */
-.empty { 
-    text-align: center; 
+/* ===================================================================
+        Empty state
+   =================================================================== */
+.empty {
+  text-align: center;
 }
 
-.empty-ill { 
-    display: flex; 
-    justify-content: center; 
-    margin-bottom: .75rem; 
+.empty-ill {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
 }
-.empty-ill svg { 
-    width: 48px; 
-    height: 48px; 
-    fill: var(--muted); 
-    opacity: .6; 
+.empty-ill svg {
+  width: 48px;
+  height: 48px;
+  fill: var(--muted);
+  opacity: 0.6;
 }
-.empty h3 { margin: 0 0 .25rem; }
-.empty p  { margin: 0; color: var(--muted); }
-
-/* ===== Bookmark List ===== */
-
-#bookmark-list { 
-    list-style: none; 
-    margin: 0; 
-    padding: 0; 
+.empty h3 {
+  margin: 0 0 0.25rem;
 }
-#bookmark-list li + li { 
-    border-top: 1px solid var(--border); 
-}
-#bookmark-list a { 
-    color: var(--text); 
-    text-decoration: none; 
-}
-#bookmark-list a:hover { 
-    text-decoration: underline; 
+.empty p {
+  margin: 0;
+  color: var(--muted);
 }
 
-.bm-main {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    min-width: 0;
-    flex: 1 1 auto;
+/* ===================================================================
+        Bookmark list
+   =================================================================== */
+
+#bookmark-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#bookmark-list li + li {
+  border-top: 1px solid var(--border);
 }
 
 .bm-item {
   display: flex;
-  gap: 2rem;
   align-items: center;
-  padding: .5rem 0;
+  gap: 2rem;
+  padding-block: 0.5rem;
   padding-inline: 1.25rem;
+  border-radius: 8px;
 }
 .bm-item:hover {
   background: color-mix(in srgb, var(--card) 92%, var(--primary) 8%);
-  border-radius: 8px;
 }
-.bm-title { 
-  font-weight: 600; 
+
+.bm-main {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex: 1 1 auto;
+}
+
+.bm-title {
+  font-weight: 600;
   color: var(--text);
   text-decoration: none;
-  padding: 0 2rem;
 }
-.bm-title:hover { text-decoration: underline; }
+.bm-title:hover {
+  text-decoration: underline;
+}
 
-.bm-sep { 
+.bm-sep {
   color: var(--muted);
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .bm-url {
   color: var(--muted);
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-style: italic;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 60%;
-  padding: 0 2rem;
+  max-width: 100%;
 }
 
 .btn-icon {
-  padding: .35rem .55rem;
+  padding: 0.35rem 0.55rem;
   line-height: 1;
   border-radius: 10px;
 }
-.bm-del { 
-  flex: 0 0 auto; 
+.bm-del {
+  flex: 0 0 auto;
+  opacity: 0.75;
+  transition: opacity 0.15s;
+}
+
+.bm-item:hover .bm-del,
+.bm-del:focus-visible {
+  opacity: 1;
+}
+
+/* ===================================================================
+        Media queries
+   =================================================================== */
+@media (max-width: 720px) {
+  .container {
+    padding: 1rem;
+  }
+  .form {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    grid-column: 1 / -1;
+    display: grid;
+    justify-items: stretch;
+  }
+  .btn-primary {
+    width: 100%;
+    display: block;
+  }
+  .bm-item {
+    padding-block: 0.8rem;
+    padding-inline: 1rem;
+  }
+  .bm-main {
+    gap: 1rem;
+  }
 }
