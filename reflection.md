@@ -21,16 +21,15 @@ Som *användare* vill jag *kunna lägga till ett bokmärke med titel och URL* s�
 ## 2) Story #7 - Ta bort bokmärke
 
 **Story:** 
-Som *användare* vill jag *kunna ta bort bokmräken från listan* så att *jag kan hålla listan aktuell och rensa bort felaktiga länkar*.
+Som *användare* vill jag *kunna ta bort bokmärken från listan* så att *jag kan hålla listan aktuell och rensa bort felaktiga länkar*.
 
-**Acceptance Criteria (checkboxar):**
+**Acceptance Criteria:**
 - [x] Varje bokmärke har en "Ta bort"-knapp eller ikon.
 - [x] Klick på knappen tar bort bokmärket direkt.
 - [x] Listan uppdateras utan omladdning.
 - [x] När listan blir tom visas empty state.
  
-**INVEST – kort motivering (2–4 meningar):**
-Vilka av I, N, V, E, S, T uppfyller storyn och varför?
+**INVEST:**
 - **I**ndependent: Bygger på befintlig kod men kan utvecklas isolerat.
 - **N**egotiable: Ikon/position/hover kan ändras utan att ändra mål.
 - **V**aluable: Håller listan relevant.
@@ -55,15 +54,13 @@ Leverera en minimal men komplett **Bookmarks Mini** för att lägga till, visa o
 
 - **Stop:** 
   - Sluta snurra iväg och pilla med nåt som ser vajsing ut i t.ex. CSS när jag egentligen jobbar på något helt annat. 
+
 - **Continue:**
   - Fortsätta med tydliga branchnamn
   - 1 US → 1 branch → 1 PR → squash till main
 
-Minst **en** konkret förbättring du provar nästa sprint och *varför*.
+
+## 4) Förbättringar
 - **Använda PR-template.** Då blir varje PR snabbare att skriva och enklare att granska. Det var först nu jag insåg vad en template gör och har således suttit och "finskrivit" varje PR. Hade istället bara kunna fylla i och vara klar.
 
 - **Hålla bättre fokus per uppgift.** Jag tenderar att "passa på" att småfixa saker mitt i en annan feature vilket kan göra branchen lite spretig. 
-
-## 4) Hänvisningar (VG)
-- Förbättring 1 stöds av PR/commit: <länk/ID>
-- Förbättring 2 stöds av PR/commit: <länk/ID>
