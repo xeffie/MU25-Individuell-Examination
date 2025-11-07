@@ -6,6 +6,8 @@ Enkel bokmärkesapplikation byggd med HTML, CSS och JavaScript.
 En individuell examination i kursen **Git & Agilt (MU25)**.  
 Projektet demonstrerar ett komplett Git-flöde med feature-brancher, pull requests, reviews och en reflektion kring agilt arbete.
 
+<img width="1000" height="821" alt="Screenshot 2025-11-07 093448" src="https://github.com/user-attachments/assets/d271d09a-12a2-480b-b163-5cd2d183d60d" />
+
 ---
 
 ## 📚 Funktioner
@@ -67,6 +69,5 @@ Projektet används för att visa förståelse för:
 - **Trello-bräda:** [Öppna i Trello](https://trello.com/invite/b/690476f3b5991c60586c3316/ATTIa1c734b043614a71d91952a03bdfc2f83A3A18AA/individuell-examination-mu25)
 - **Mina reviews:**
   -   Given: https://github.com/ThatMayBeTheCase/Bookmarks-lite/pull/2#pullrequestreview-3411508619
-  -   Given: https://github.com/VitaliyBeletskiy/mu25-git-agile-bookmarks-mini/pull/3#pullrequestreview-3416439395 
-
-  -   Mottagen:
+  -   Given: https://github.com/VitaliyBeletskiy/mu25-git-agile-bookmarks-mini/pull/3#pullrequestreview-3416439395
+  -   Mottagen: https://github.com/xeffie/MU25-Individuell-Examination/pull/9
