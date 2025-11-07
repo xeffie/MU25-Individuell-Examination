@@ -64,10 +64,17 @@ Projektet används för att visa förståelse för:
 
 ---
 
+## 💥 Konflikt
+Jag skapade en avsiktlig konflikt genom att skapa två olika brancher med två olika PR. När den första mergades blev det en konflikt i den andra. Jag löste det genom att i GitHub acceptera den ändring som var aktuell.
+
+---
+
 ## 🔗 Länkar
 
 - **Trello-bräda:** [Öppna i Trello](https://trello.com/invite/b/690476f3b5991c60586c3316/ATTIa1c734b043614a71d91952a03bdfc2f83A3A18AA/individuell-examination-mu25)
 - **Mina reviews:**
-  -   Given: https://github.com/ThatMayBeTheCase/Bookmarks-lite/pull/2#pullrequestreview-3411508619
-  -   Given: https://github.com/VitaliyBeletskiy/mu25-git-agile-bookmarks-mini/pull/3#pullrequestreview-3416439395
-  -   Mottagen: https://github.com/xeffie/MU25-Individuell-Examination/pull/9
+  -   [Review Given #1](https://github.com/ThatMayBeTheCase/Bookmarks-lite/pull/2#pullrequestreview-3411508619)
+  -   [Review Given #2](https://github.com/VitaliyBeletskiy/mu25-git-agile-bookmarks-mini/pull/3#pullrequestreview-3416439395)
+  -   [Review Mottagen #1](https://github.com/xeffie/MU25-Individuell-Examination/pull/9)
+- **Konflikt:**
+  - [Konflikt](https://github.com/xeffie/MU25-Individuell-Examination/pull/9#issuecomment-3501453399)
